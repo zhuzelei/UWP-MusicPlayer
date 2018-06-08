@@ -1,0 +1,165 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="MusicList_test.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MusicList_test"
+    xmlns:md="using:MusicList_test.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mvc="using:MusicList_test.Converter"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <UserControl.Resources>
+        <mvc:ScheduleConverter x:Key="ScheduleConverter1"></mvc:ScheduleConverter>
+        <mvc:VolumeConverter x:Key="VolumeConverter2"></mvc:VolumeConverter>
+    </UserControl.Resources>
+    
+    <Page.BottomAppBar>
+        <AppBar IsOpen="True" IsSticky="True">
+            <Grid x:ConnectionId='2' Width="auto" x:Name="bottombar">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="35" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="35" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+
+                <AppBarButton x:ConnectionId='3' Grid.Column="0"  Icon="Previous" x:Name="PrevButton" VerticalAlignment="Center" Label="Prev"                  ></AppBarButton>
+                <AppBarButton x:ConnectionId='4' Grid.Column="1" Icon="Play" x:Name="PlayPauseButton" VerticalAlignment="Center" Label="Play"                   ></AppBarButton>
+                <AppBarButton x:ConnectionId='5' Grid.Column="2" Icon="Next" x:Name="NextButton" VerticalAlignment="Center"  Label="Next"                  ></AppBarButton>
+                <AppBarSeparator Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center"></AppBarSeparator>
+
+
+                <Slider x:ConnectionId='6' x:Name="TimeLine"  Minimum="0"  Grid.Column="4" VerticalAlignment="Center"
+                        Value="{Binding ElementName=mediaPlayer, Path=Position,Converter={StaticResource ScheduleConverter1}, Mode=TwoWay}"/>
+
+                <AppBarSeparator Grid.Column="5" HorizontalAlignment="Right" VerticalAlignment="Center"></AppBarSeparator>
+                <SymbolIcon Symbol="Volume" Grid.Column="6" VerticalAlignment="Center"></SymbolIcon>
+
+                <Slider x:ConnectionId='7' x:Name="VolumeLine" Minimum="0" Maximum="100"  Grid.Column="7" Width="100" VerticalAlignment="Center"                                 ></Slider>
+
+                <AppBarButton x:ConnectionId='8' Label="返回"  Grid.Column="8" Icon="Back" x:Name="GoBack" VerticalAlignment="Center"                   ></AppBarButton>
+                
+                <MediaElement x:ConnectionId='9' x:Name="mediaPlayer"  Height="0" Width="0" Visibility="Collapsed"
+                    AudioCategory="BackgroundCapableMedia" AutoPlay="True"                                                                   >
+                </MediaElement>
+                
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:ConnectionId='10' x:Name="VisualStateGroup">
+                <VisualState x:ConnectionId='11' x:Name="VisualStateMin0">
+                    <VisualState.Setters>
+
+                        <Setter Target="InlineMusicViewGrid.(IUelement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="SongList.(Grid.ColumnSpan)" Value="2"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:ConnectionId='12' x:Name="VisualStateMin800">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <TextBlock x:ConnectionId='13'  Grid.Row="0" x:Name="textBlock" Text="  MusicList" Style="{StaticResource HeaderTextBlockStyle}"/>
+        <TextBox x:ConnectionId='14'  x:Name="Query" HorizontalAlignment="Left" Height="32" Margin="50,74,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.525,-0.359" Grid.Row="0"/>
+        <Button x:ConnectionId='15' BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                x:Name="Search" Content="查询" HorizontalAlignment="Left" Margin="250,74,0,0" VerticalAlignment="Top" Width="57" Grid.Row="0"                  />
+        <Button x:ConnectionId='16' BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                Content="新建歌曲" Width="100" Grid.Row="0" Margin="350,74,0,0"                  ></Button>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListView x:ConnectionId='17'  x:Name ="SongList" IsItemClickEnabled="True" 
+                                                                                    >
+
+                <ListView.ItemTemplate>
+                    <DataTemplate                     >
+                        <UserControl x:ConnectionId='26'>
+                            <Grid Height="80">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup>
+                                        <VisualState x:Name="state2">
+                                            <VisualState.StateTriggers>
+                                                <AdaptiveTrigger MinWindowWidth="600"/>
+                                            </VisualState.StateTriggers>
+                                        </VisualState>
+                                        <VisualState x:Name="state1">
+                                            <VisualState.StateTriggers>
+                                                <AdaptiveTrigger MinWindowWidth="0"/>
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter Target="img.Visibility" Value="Collapsed"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                 <Image Source="Assets/音符.PNG" Grid.Column="0" Width="50" Height="50" ></Image>
+                                <TextBlock x:ConnectionId='27'                      Grid.Column="1" VerticalAlignment="Center" Foreground="Black" FontWeight="Normal" FontSize="15" LineHeight="20" TextWrapping="Wrap" />
+                            </Grid>
+                        </UserControl>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid x:ConnectionId='18' x:Name="InlineMusicViewGrid" Grid.Column="1" Margin="66,-50,-18,-166"  >
+                <ScrollViewer Margin="10">
+                    <StackPanel>
+                        <Image x:ConnectionId='19' x:Name ="img" Source="Assets/音符.png" Width="200" Height="200" Stretch="None"/>
+                        <RelativePanel Width="350">
+                            <Button x:ConnectionId='25' BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                                    x:Name="Share"   RelativePanel.AlignRightWithPanel="True"  Margin="-40.4,0,0,0" Height="40" Width="40" HorizontalAlignment="Left" VerticalAlignment="Center"                  >
+                                <StackPanel>
+                                    <Image Source="Assets/share.png" Height="20" Width="20"/>
+                                </StackPanel>
+                            </Button>
+
+                        </RelativePanel>
+                        <TextBox x:ConnectionId='20' BorderThickness="0" x:Name="Name" Width="350" Header="Name" Margin="0,12,0,0" />
+                        <TextBox x:ConnectionId='21' BorderThickness="0" x:Name ="Singer" Width="350"  Margin="0,12,0,0" Header="Singer" />
+                        <TextBox x:ConnectionId='22' BorderThickness="0" x:Name ="Path" Width="350"  Margin="0,12,0,0" Header="Path" HorizontalAlignment="Center" />
+                        <RelativePanel Width="350" Margin="0,24,0,0">
+                            <Button x:ConnectionId='23' BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                                    x:Name="UpdateButton" Content="Update" HorizontalAlignment="Left" Width="80"                    />
+                            <Button x:ConnectionId='24' BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                                    x:Name="DeleteButton" Content="Delete" Width="80" RelativePanel.AlignRightWithPanel="True"                    />
+
+                        </RelativePanel>
+
+                    </StackPanel>
+                </ScrollViewer>
+                
+            </Grid>
+        </Grid>
+        <Grid.Background>
+            <ImageBrush  ImageSource="Assets/backPic.jpg" Stretch="Fill" ></ImageBrush>
+        </Grid.Background>
+    </Grid>
+</Page>
+

@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="MusicList_test.IntroPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MusicList_test"
+    xmlns:md="using:MusicList_test.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <UserControl.Resources>
+        <Storyboard x:Name="BigStoryboard" RepeatBehavior="Forever">
+            <DoubleAnimation Duration="0:0:30" To="360" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="bigpic" d:IsOptimized="True"/>
+        </Storyboard>
+        <Storyboard x:Name="PoleStoryboard">
+            <DoubleAnimation Duration="0:0:0.5" To="340" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="pole" d:IsOptimized="True"/>
+        </Storyboard>
+        <Storyboard x:Name="PoleBackStoryboard">
+            <DoubleAnimation Duration="0:0:0.5" To="320"  Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="pole" d:IsOptimized="True"/>
+        </Storyboard>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="300"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Ellipse Grid.Row="1" x:Name="bigpic" Visibility="Visible" RenderTransformOrigin="0.5,0.5" 
+                     Width="250" Height="250"  VerticalAlignment="Center" HorizontalAlignment="Center"
+                 ToolTipService.ToolTip="xxx" 
+                       ToolTipService.Placement="Right">
+            <Ellipse.RenderTransform>
+                <CompositeTransform/>
+            </Ellipse.RenderTransform>
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Assets/CD.png" Stretch="Fill" />
+            </Ellipse.Fill>
+        </Ellipse>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions> 
+        
+             <Rectangle  Grid.Column="1" Visibility="Visible" x:Name="pole" Width="130" Height="170" RenderTransformOrigin="0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                 <Rectangle.RenderTransform>
+                    <CompositeTransform Rotation="320"/>
+                 </Rectangle.RenderTransform>
+                 <Rectangle.Fill>
+                    <ImageBrush ImageSource="Assets/Bar.png" Stretch="Fill"/>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                     Content="LuckyClick" VerticalAlignment="Top" HorizontalAlignment="Center" Click="LuckySong" ></Button>
+            <Button Grid.Column="0" BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                    Content="MusicList" VerticalAlignment="Top" HorizontalAlignment="Right" Click="GoList" ></Button>
+            <Button Grid.Column="2" BorderThickness="0.1" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                    Content="AddSong" VerticalAlignment="Top" HorizontalAlignment="Left" Click="GoAdd" ></Button>
+            <MediaElement x:Name="mediaPlayer"  Height="300" Width="1000" Visibility="Visible"
+                    AudioCategory="BackgroundCapableMedia" AutoPlay="True" MediaEnded="NextSongPlay" >
+            </MediaElement>
+        </Grid>
+
+        
+        <Grid.Background>
+            <ImageBrush  ImageSource="Assets/backPic.jpg" Stretch="Fill" ></ImageBrush>
+        </Grid.Background>
+    </Grid>
+    
+</Page>

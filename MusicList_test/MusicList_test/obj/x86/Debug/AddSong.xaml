@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="MusicList_test.AddSong"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MusicList_test"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid >
+        <Grid.Background>
+            <ImageBrush  ImageSource="Assets/backPic.jpg" Stretch="Fill" ></ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock x:ConnectionId='1' x:Name="textBlock" Grid.Row="0" Text="  AddSong" Style="{StaticResource HeaderTextBlockStyle}"/>
+        <Grid Grid.Row="1">
+            <ScrollViewer>
+                <StackPanel>
+                    <Image x:ConnectionId='2' x:Name ="img" Source="Assets/音符.png" Width="350" Height="180" Stretch="Uniform"/>
+
+                    <TextBox x:ConnectionId='3' x:Name="Name" Width="350" Header="Name" Margin="0,12,0,0" />
+                    <TextBox x:ConnectionId='4' x:Name ="Singer" Width="350"  Margin="0,12,0,0" Header="Singer" />
+                    <TextBox x:ConnectionId='5' x:Name ="Path" Width="350" Margin="0,12,0,0" Header="Path" HorizontalAlignment="Center" />
+                    <RelativePanel Width="350" Margin="0,24,0,0">
+                        <Button x:ConnectionId='6' BorderThickness="0.5" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                                x:Name="Create_Button" Content="Create" HorizontalAlignment="Left" Width="63"                    />
+                        <Button x:ConnectionId='7' BorderThickness="0.5" Background="Transparent"  Style="{StaticResource ButtonRevealStyle}"
+                                x:Name="CancelButton" Content="Cancel" RelativePanel.AlignRightWithPanel="True"                   />
+
+                    </RelativePanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>
+
